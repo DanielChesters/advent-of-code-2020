@@ -16,17 +16,37 @@ class Day01 : Day {
     private fun getPairs(input: List<String>): List<Pair<Int, Int>> {
         val ints = input.map(String::toInt)
 
-        return ints.map {first ->
+        return ints.map { first ->
             ints.mapNotNull { second ->
                 if (first != second) Pair(first, second)
                 else null
             }
         }.flatten()
-
     }
 
     override fun part2(input: List<String>): Int {
-        TODO("Not yet implemented")
+        val triples = getTriples(input)
+        val exactTriple = filterTriples(triples)
+
+        return exactTriple.first * exactTriple.second * exactTriple.third
+    }
+
+    private fun filterTriples(triples: List<Triple<Int, Int, Int>>): Triple<Int, Int, Int> =
+        triples.first { triple ->
+            triple.first + triple.second + triple.third == 2020
+        }
+
+    private fun getTriples(input: List<String>): List<Triple<Int, Int, Int>> {
+        val ints = input.map(String::toInt)
+
+        return ints.map { first ->
+            ints.map { second ->
+                ints.mapNotNull { third ->
+                    if (first != second && second != third && third != first) Triple(first, second, third)
+                    else null
+                }
+            }.flatten()
+        }.flatten()
     }
 }
 
@@ -35,4 +55,5 @@ fun main() {
     val input = readInput("Day01")
 
     println("part 1 : ${day01.part1(input)}")
+    println("part 2 : ${day01.part2(input)}")
 }
