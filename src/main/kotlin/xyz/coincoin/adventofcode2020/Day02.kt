@@ -14,12 +14,25 @@ class Day02 : Day {
         return validatedPasswordLines.count()
     }
 
-    private fun validatePasswordLines(passwordLines: List<PasswordLine>): List<PasswordLine> {
-        return passwordLines.filter { passwordLine ->
+    override fun part2(input: List<String>): Int {
+        val passwordLines = getPasswordLines(input)
+        val validatedPasswordLines = validatePasswordLinesAlt(passwordLines)
+        return validatedPasswordLines.count()
+    }
+
+    private fun validatePasswordLines(passwordLines: List<PasswordLine>): List<PasswordLine> =
+        passwordLines.filter { passwordLine ->
             val count = passwordLine.password.count { c -> c == passwordLine.char }
             count in passwordLine.min..passwordLine.max
         }
-    }
+
+    private fun validatePasswordLinesAlt(passwordLines: List<PasswordLine>): List<PasswordLine> =
+        passwordLines.filter { passwordLine ->
+            (passwordLine.password[passwordLine.min - 1] == passwordLine.char
+                    && passwordLine.password[passwordLine.max - 1] != passwordLine.char)
+                    || (passwordLine.password[passwordLine.min - 1] != passwordLine.char
+                    && passwordLine.password[passwordLine.max - 1] == passwordLine.char)
+        }
 
     private fun getPasswordLines(input: List<String>): List<PasswordLine> {
         val regex = "(\\d+)-(\\d+) ([a-z]): ([a-z]+)".toRegex()
@@ -34,10 +47,6 @@ class Day02 : Day {
                 else PasswordLine(number2, number1, char, password)
             } else null
         }
-    }
-
-    override fun part2(input: List<String>): Int {
-        TODO("Not yet implemented")
     }
 }
 

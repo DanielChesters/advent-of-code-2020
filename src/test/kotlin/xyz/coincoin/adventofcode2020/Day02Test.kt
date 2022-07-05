@@ -11,7 +11,7 @@ class Day02Test : ShouldSpec({
         day02.part1(input) shouldBe 2
     }
 
-    should("give xxx for part 2") {
+    should("give 1 for part 2") {
         day02.part2(input) shouldBe 1
     }
 })
