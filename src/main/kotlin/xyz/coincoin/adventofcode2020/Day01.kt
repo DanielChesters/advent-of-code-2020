@@ -1,11 +1,18 @@
 package xyz.coincoin.adventofcode2020
 
 class Day01 : Day {
-    override fun part1(input: List<String>): Int {
+    override fun part1(input: List<String>): Long {
         val pairs = getPairs(input)
         val exactPair = filterPairs(pairs)
 
-        return exactPair.first * exactPair.second
+        return exactPair.first.toLong() * exactPair.second.toLong()
+    }
+
+    override fun part2(input: List<String>): Long {
+        val triples = getTriples(input)
+        val exactTriple = filterTriples(triples)
+
+        return exactTriple.first.toLong() * exactTriple.second.toLong() * exactTriple.third.toLong()
     }
 
     private fun filterPairs(pairs: List<Pair<Int, Int>>): Pair<Int, Int> =
@@ -22,13 +29,6 @@ class Day01 : Day {
                 else null
             }
         }.flatten()
-    }
-
-    override fun part2(input: List<String>): Int {
-        val triples = getTriples(input)
-        val exactTriple = filterTriples(triples)
-
-        return exactTriple.first * exactTriple.second * exactTriple.third
     }
 
     private fun filterTriples(triples: List<Triple<Int, Int, Int>>): Triple<Int, Int, Int> =

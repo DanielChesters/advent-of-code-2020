@@ -8,16 +8,16 @@ data class PasswordLine(
 )
 
 class Day02 : Day {
-    override fun part1(input: List<String>): Int {
+    override fun part1(input: List<String>): Long {
         val passwordLines = getPasswordLines(input)
         val validatedPasswordLines = validatePasswordLines(passwordLines)
-        return validatedPasswordLines.count()
+        return validatedPasswordLines.count().toLong()
     }
 
-    override fun part2(input: List<String>): Int {
+    override fun part2(input: List<String>): Long {
         val passwordLines = getPasswordLines(input)
         val validatedPasswordLines = validatePasswordLinesAlt(passwordLines)
-        return validatedPasswordLines.count()
+        return validatedPasswordLines.count().toLong()
     }
 
     private fun validatePasswordLines(passwordLines: List<PasswordLine>): List<PasswordLine> =
